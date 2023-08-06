@@ -1,0 +1,39 @@
+package com.example.ProgressTest.controller;
+
+import com.example.ProgressTest.entity.Customer;
+import com.example.ProgressTest.service.CustomerService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/main/customer")
+public class CustomerController {
+    @Autowired
+    private CustomerService customerService;
+
+    @GetMapping
+    public List<Customer> allCustomers(){
+        return customerService.findAll();
+    }
+    @PostMapping
+    public Customer save(@RequestBody Customer customer){
+        return customerService.save(customer);
+    }
+    @GetMapping("/{id}")
+    public Optional<Customer> getCustomer(@PathVariable String id){
+        return customerService.findById(id);
+    }
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable String id){
+        customerService.deleteById(id);
+    }
+    @PutMapping("/{id}")
+    public Customer update(@PathVariable("id") String id,
+                       @RequestBody Customer customer){
+        return customerService.update(id,customer);
+    }
+
+}
