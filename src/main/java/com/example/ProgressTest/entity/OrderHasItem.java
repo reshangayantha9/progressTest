@@ -5,22 +5,22 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "order_has_item")
-
-public class OrderHasItem {
+@IdClass(com.example.ProgressTest.entity.idGenerator.OrderHasItemPK.class)
+public class OrderHasItem implements Serializable {
     @Id
-    @GeneratedValue
-    @Column(name="id")
-    private int id;
     @ManyToOne
-    @JoinColumn(name = "order_order_id", referencedColumnName = "order_id",unique = true,nullable = false)
+    @JoinColumn(name = "order_order_id", referencedColumnName = "order_id")
     private Order order;
+    @Id
     @ManyToOne
-    @JoinColumn(name = "item_code", referencedColumnName = "code",unique = true,nullable = false)
+    @JoinColumn(name = "item_code", referencedColumnName = "code")
     private Item item;
     private double price;
     private double qty;

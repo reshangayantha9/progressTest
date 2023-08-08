@@ -18,7 +18,7 @@ public class OrderId implements IdentifierGenerator {
     public Serializable generate(SharedSessionContractImplementor sharedSessionContractImplementor, Object o)throws HibernateException {
         try {
             int nextId;
-            String lastId = jdbcTemplate.queryForObject("SELECT order_id FROM progresstest.order ORDER BY order_id DESC LIMIT 1", String.class);
+            String lastId = jdbcTemplate.queryForObject("SELECT order_id FROM progresstest.orders ORDER BY order_id DESC LIMIT 1", String.class);
             nextId = Integer.parseInt(lastId.substring(3)) + 1;
             return "LM_" + nextId;
         } catch (Exception ex) {
