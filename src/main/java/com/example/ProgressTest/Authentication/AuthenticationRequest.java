@@ -1,5 +1,6 @@
 package com.example.ProgressTest.Authentication;
 
+import jakarta.persistence.Lob;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

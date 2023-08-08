@@ -10,6 +10,7 @@ import com.example.ProgressTest.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -39,15 +40,15 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
                         request.getPassword()
+
                 )
         );
+
         User user=repository.findByEmail(request.getEmail())
                 .orElseThrow();
-        var jwtToken=jwtService.generateToken(user);
-        System.out.println(jwtToken);
-        System.out.println(user);
-        return AuthenticationResponse.builder()
-                .token(jwtToken)
-                .build();
+            var jwtToken = jwtService.generateToken(user);
+            return AuthenticationResponse.builder()
+                    .token(jwtToken)
+                    .build();
     }
 }

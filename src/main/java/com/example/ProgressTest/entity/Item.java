@@ -14,13 +14,18 @@ import java.util.List;
 public class Item {
     @Id
     @GeneratedValue
+    @Column(name="code")
     private int code;
+    @Column(name="description",length = 45)
     private String description;
+    @Column(name="qty")
     private int qty;
+    @Column(name="unit_price")
     private double unitPrice;
     @Lob
+    @Column(name="barcode")
     private byte[] barcode;
     @JsonIgnore
     @OneToMany(mappedBy = "item")
-    private List<Order_has_Item> orderHasItems;
+    private List<OrderHasItem> orderHasItems;
 }

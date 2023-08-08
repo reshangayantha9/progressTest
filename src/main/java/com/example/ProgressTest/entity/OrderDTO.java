@@ -11,8 +11,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderDTO {
+
     private Order order;
     private  Payment payment;
-    private List<Order_has_Item> orderHasItem;
+    private List<OrderHasItem> orderHasItem;
 
 }

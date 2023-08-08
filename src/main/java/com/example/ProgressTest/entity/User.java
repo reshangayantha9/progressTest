@@ -1,12 +1,11 @@
 package com.example.ProgressTest.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,11 +20,19 @@ import java.util.List;
 @Table(name = "user")
 public class User implements UserDetails {
     @Id
-    @GeneratedValue
-    private int id;
+    @Column(name="id",length = 80)
+    @GenericGenerator(name="user_Id",strategy = "com.example.ProgressTest.entity.idGenerator.UserId")
+    @GeneratedValue(generator="user_Id")
+    private String id;
+    @Column(name="email",length = 100)
     private String email;
+    @Column(name="name",length = 45)
     private String name;
+    @Column(name="password")
     private String password;
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private List<Order> orderEntities;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -56,4 +63,5 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }

@@ -25,7 +25,7 @@ public class ItemController {
         return itemService.findAll();
     }
     @GetMapping("/{code}")
-    public Optional<Item>getItem(@RequestParam int code){
+    public Optional<Item>getItem(@PathVariable  int code){
         return itemService.findById(code);
     }
     @DeleteMapping("/{code}")

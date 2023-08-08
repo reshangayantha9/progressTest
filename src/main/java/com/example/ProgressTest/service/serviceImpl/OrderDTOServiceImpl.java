@@ -22,30 +22,35 @@ public class OrderDTOServiceImpl implements OrderDTOService {
     private OrderHasItemRepository orderHasItemRepository;
     @Autowired
     private CustomerRepository customerRepository;
+    @Autowired
+    private UserRepository userRepository;
     @Override
     public String placeOrder(OrderDTO orderDTO) {
-        Order savedOrder;
-        Order order=orderDTO.getOrder();
-        Customer customer= customerRepository.findById(String.valueOf(orderDTO.getOrder().getCustomer().getId())).get();
-        LocalDate date = LocalDate.now();
-        Payment payment=orderDTO.getPayment();
-        List<Order_has_Item> orderHasItem=orderDTO.getOrderHasItem();
-        if(Objects.nonNull(customer)){
-            order.setOrderDate(date);
-            order.setCustomer(customer);
-            savedOrder=orderRepository.save(order);
-            if(Objects.nonNull(savedOrder)) {
-                payment.setDate(date);
-                payment.setOrder(savedOrder);
-                paymentRepository.save(payment);
-                for (Order_has_Item orders : orderHasItem) {
-                    Item item = itemRepository.findById(orders.getItem().getCode()).get();
-                    orders.setOrder(savedOrder);
-                    orders.setItem(item);
-                    orderHasItemRepository.save(orders);
+            Order savedOrder;
+            Order order = orderDTO.getOrder();
+            Customer customer = customerRepository.findById(orderDTO.getOrder().getCustomer().getId()).get();
+            User user=userRepository.findById(orderDTO.getOrder().getUser().getId()).get();
+            LocalDate date = LocalDate.now();
+            Payment payment = orderDTO.getPayment();
+            List<OrderHasItem> orderHasItem = orderDTO.getOrderHasItem();
+            if (Objects.nonNull(customer)&&Objects.nonNull(user)) {
+                order.setOrderDate(date);
+                order.setCustomer(customer);
+                order.setUser(user);
+                savedOrder = orderRepository.save(order);
+                if (Objects.nonNull(savedOrder)) {
+                    payment.setDate(date);
+                    payment.setOrder(savedOrder);
+                    paymentRepository.save(payment);
+                    for (OrderHasItem orders : orderHasItem) {
+                        Item item = itemRepository.findById(orders.getItem().getCode()).get();
+                        orders.setOrder(savedOrder);
+                        orders.setItem(item);
+                        orderHasItemRepository.save(orders);
+                    }
                 }
             }
+            return "Your order has been placed successfully.";
         }
-        return "your order placed successfully";
-    }
+
 }
