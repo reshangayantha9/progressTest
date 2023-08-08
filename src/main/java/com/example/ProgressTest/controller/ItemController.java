@@ -3,6 +3,7 @@ package com.example.ProgressTest.controller;
 import com.example.ProgressTest.entity.Item;
 import com.example.ProgressTest.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,5 +37,13 @@ public class ItemController {
     public Item update(@PathVariable("code") int code,
                        @RequestBody Item item){
         return itemService.update(code,item);
+    }
+    @GetMapping("/filter/{offset}/{pageSize}/{field}")
+    public Page<Item> getItemWithPaginationAndSorting(
+            @PathVariable int offset,
+            @PathVariable int pageSize,
+            @PathVariable String field
+    ){
+        return itemService.findByPaginationAndSorting(offset,pageSize,field);
     }
 }

@@ -4,6 +4,9 @@ import com.example.ProgressTest.entity.Customer;
 import com.example.ProgressTest.repository.CustomerRepository;
 import com.example.ProgressTest.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -49,5 +52,11 @@ public class CustomerServiceImpl implements CustomerService {
             customerdb.setSalary(customer.getSalary());
         }
         return customerRepository.save(customerdb);
+    }
+
+    @Override
+    public Page<Customer> findByPaginationAndSorting(int offset, int pageSize, String field) {
+        Page<Customer> customers=customerRepository.findAll(PageRequest.of(offset,pageSize).withSort(Sort.by(Sort.Direction.ASC,field)));
+        return customers;
     }
 }

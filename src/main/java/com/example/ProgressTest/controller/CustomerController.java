@@ -3,6 +3,7 @@ package com.example.ProgressTest.controller;
 import com.example.ProgressTest.entity.Customer;
 import com.example.ProgressTest.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,6 +35,15 @@ public class CustomerController {
     public Customer update(@PathVariable("id") String id,
                        @RequestBody Customer customer){
         return customerService.update(id,customer);
+    }
+
+    @GetMapping("/filter/{offset}/{pageSize}/{field}")
+    public Page<Customer> getUserWithPaginationAndSorting(
+            @PathVariable int offset,
+            @PathVariable int pageSize,
+            @PathVariable String field
+    ){
+        return customerService.findByPaginationAndSorting(offset,pageSize,field);
     }
 
 }

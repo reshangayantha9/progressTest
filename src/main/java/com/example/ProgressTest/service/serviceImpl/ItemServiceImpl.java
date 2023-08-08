@@ -5,6 +5,9 @@ import com.example.ProgressTest.repository.ItemRepository;
 import com.example.ProgressTest.entity.idGenerator.ItemBarCode;
 import com.example.ProgressTest.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -55,5 +58,11 @@ public class ItemServiceImpl implements ItemService {
         }
         System.out.println(itemdb);
         return itemRepository.save(itemdb);
+    }
+
+    @Override
+    public Page<Item> findByPaginationAndSorting(int offset, int pageSize, String field) {
+        Page<Item> items=itemRepository.findAll(PageRequest.of(offset,pageSize).withSort(Sort.by(Sort.Direction.ASC,field)));
+        return items;
     }
 }
