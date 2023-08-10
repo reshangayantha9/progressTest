@@ -2,10 +2,12 @@ package com.example.ProgressTest.controller;
 
 import com.example.ProgressTest.entity.Customer;
 import com.example.ProgressTest.service.CustomerService;
+import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,6 +46,10 @@ public class CustomerController {
             @PathVariable String field
     ){
         return customerService.findByPaginationAndSorting(offset,pageSize,field);
+    }
+    @GetMapping("/report")
+    public String getReport(){
+        return customerService.exportReport();
     }
 
 }

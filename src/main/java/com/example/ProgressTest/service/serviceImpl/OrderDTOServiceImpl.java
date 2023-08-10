@@ -25,7 +25,8 @@ public class OrderDTOServiceImpl implements OrderDTOService {
     @Autowired
     private UserRepository userRepository;
     @Override
-    public String placeOrder(OrderDTO orderDTO) {
+    public String placeOrder(OrderDTO orderDTO)  {
+        try {
             Order savedOrder;
             Order order = orderDTO.getOrder();
             Customer customer = customerRepository.findById(orderDTO.getOrder().getCustomer().getId()).get();
@@ -51,6 +52,10 @@ public class OrderDTOServiceImpl implements OrderDTOService {
                 }
             }
             return "Your order has been placed successfully.";
+        }catch (Exception e){
+            return "Your order not placed \n"+ e.toString();
         }
+
+    }
 
 }

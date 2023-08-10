@@ -3,15 +3,19 @@ package com.example.ProgressTest.service.serviceImpl;
 import com.example.ProgressTest.entity.Customer;
 import com.example.ProgressTest.repository.CustomerRepository;
 import com.example.ProgressTest.service.CustomerService;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ResourceUtils;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.*;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -53,6 +57,27 @@ public class CustomerServiceImpl implements CustomerService {
         }
         return customerRepository.save(customerdb);
     }
+
+    @Override
+    public String exportReport()  {
+        try {
+            String path = "D:\\";
+            List<Customer> customers = customerRepository.findAll();
+            File file = ResourceUtils.getFile("classpath:CustomerReport.jrxml");
+            JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(customers);
+            Map<String, Object> parameters = new HashMap<>();
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters, dataSource);
+            JasperExportManager.exportReportToPdfFile(jasperPrint, path + "\\customer.pdf");
+            return "report generated in path : " + path;
+        }catch (Exception e){
+            return "report generated fail \n"+ e.getMessage();
+        }
+
+
+
+    }
+
 
     @Override
     public Page<Customer> findByPaginationAndSorting(int offset, int pageSize, String field) {
