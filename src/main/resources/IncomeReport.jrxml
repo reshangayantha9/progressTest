@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.5.final using JasperReports Library version 6.20.5-3efcf2e67f959db3888d79f73dde2dbd7acb4f8e  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8c01ba48-6a11-4454-ad2c-d61959d8a628">
+    <parameter name="income" class="java.lang.String"/>
+    <parameter name="date" class="java.time.LocalDate"/>
+    <field name="orderId" class="java.lang.String">
+
+    </field>
+    <field name="orderDate" class="java.time.LocalDate">
+
+    </field>
+    <field name="cost" class="java.lang.Double">
+
+    </field>
+    <background>
+        <band splitType="Stretch"/>
+    </background>
+    <title>
+        <band height="54" splitType="Stretch">
+            <frame>
+                <reportElement x="2" y="0" width="550" height="54" forecolor="#3224B3" backcolor="#4D58D1" uuid="0c0613f4-5323-4a14-92c7-e9908d5083a7"/>
+                <staticText>
+                    <reportElement x="0" y="7" width="250" height="40" uuid="8cbc9a52-a5c4-41e9-ac9d-3e3d5b250493"/>
+                    <textElement>
+                        <font fontName="Arial Black" size="22"/>
+                    </textElement>
+                    <text><![CDATA[Daily Income]]></text>
+                </staticText>
+            </frame>
+        </band>
+    </title>
+    <pageHeader>
+        <band height="24" splitType="Stretch">
+            <staticText>
+                <reportElement x="310" y="2" width="70" height="21" uuid="80fc538a-3696-4cb3-bfca-d6aad15b5d9d"/>
+                <textElement>
+                    <font fontName="Arial" size="14"/>
+                </textElement>
+                <text><![CDATA[Filter Date]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="380" y="2" width="164" height="21" uuid="a3092c60-34d5-488f-be90-55372f1af4de"/>
+                <textElement>
+                    <font fontName="Arial" size="14"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{date}]]></textFieldExpression>
+            </textField>
+        </band>
+    </pageHeader>
+    <columnHeader>
+        <band height="30" splitType="Stretch">
+            <staticText>
+                <reportElement x="90" y="1" width="230" height="28" uuid="71e03056-4cc8-4963-a250-7a6e472280e6">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ca6f2e86-f1d4-4c8b-a66c-d45906f15862"/>
+                </reportElement>
+                <textElement>
+                    <font fontName="Arial Black" size="14"/>
+                </textElement>
+                <text><![CDATA[order_date]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="320" y="-1" width="158" height="30" uuid="2c7e5b9a-e401-4c03-ae38-7be6e41327cb">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0808e659-e212-43f1-adf3-998584b4a6be"/>
+                </reportElement>
+                <textElement textAlignment="Right">
+                    <font fontName="Arial Black" size="14"/>
+                </textElement>
+                <text><![CDATA[cost]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="2" y="1" width="88" height="28" uuid="b9000c6a-6b60-470d-8de3-1a4493fea321">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ca6f2e86-f1d4-4c8b-a66c-d45906f15862"/>
+                </reportElement>
+                <textElement>
+                    <font fontName="Arial Black" size="14"/>
+                </textElement>
+                <text><![CDATA[Order ID]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+    <detail>
+        <band height="23" splitType="Stretch">
+            <textField>
+                <reportElement x="2" y="0" width="88" height="20" uuid="d1b793d7-e1dd-44aa-9184-763d60e0eaed"/>
+                <textElement>
+                    <font fontName="Arial" size="14"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{orderId}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="90" y="0" width="230" height="20" uuid="6ae2e92c-7232-4f86-bd3e-c0f7f145311f">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ca6f2e86-f1d4-4c8b-a66c-d45906f15862"/>
+                </reportElement>
+                <textElement>
+                    <font fontName="Arial" size="14"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{orderDate}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="320" y="0" width="158" height="20" uuid="e7a6796e-4d02-402a-a0b7-aebf71f603a2">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0808e659-e212-43f1-adf3-998584b4a6be"/>
+                </reportElement>
+                <textElement textAlignment="Right">
+                    <font fontName="Arial" size="14"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{cost}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+    <columnFooter>
+        <band height="34" splitType="Stretch">
+            <line>
+                <reportElement x="1" y="3" width="543" height="1" uuid="11dcebe3-7904-44da-a0af-1962465a1d5b"/>
+            </line>
+            <staticText>
+                <reportElement x="234" y="6" width="100" height="20" uuid="f68d7b82-f96b-4380-abef-036f9f2c0deb"/>
+                <textElement>
+                    <font fontName="Arial" size="16"/>
+                </textElement>
+                <text><![CDATA[Total Income]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="335" y="6" width="144" height="20" uuid="45d13e19-0fe7-4726-9511-ced6f24241a8"/>
+                <textElement textAlignment="Right">
+                    <font fontName="Arial" size="16"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{income}]]></textFieldExpression>
+            </textField>
+            <line>
+                <reportElement x="350" y="30" width="140" height="1" uuid="40800060-a4c7-45ce-b311-23b5ec5b7690"/>
+            </line>
+            <line>
+                <reportElement x="362" y="33" width="120" height="1" uuid="27e34445-747c-4530-8522-de7bd1c36e00"/>
+            </line>
+        </band>
+    </columnFooter>
+    <pageFooter>
+        <band height="31" splitType="Stretch">
+            <textField>
+                <reportElement x="449" y="10" width="100" height="20" uuid="76a1d0e4-ec3a-4657-9dfb-a9e55331d486"/>
+                <textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+            </textField>
+        </band>
+    </pageFooter>
+    <summary>
+        <band splitType="Stretch"/>
+    </summary>
+</jasperReport>
