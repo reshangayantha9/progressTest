@@ -24,7 +24,7 @@ public class User implements UserDetails {
     @GenericGenerator(name="user_Id",strategy = "com.example.ProgressTest.entity.idGenerator.UserId")
     @GeneratedValue(generator="user_Id")
     private String id;
-    @Column(name="email",length = 100)
+    @Column(name="email",length = 100,unique = true)
     private String email;
     @Column(name="name",length = 45)
     private String name;

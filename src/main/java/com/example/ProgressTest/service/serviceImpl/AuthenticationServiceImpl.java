@@ -23,32 +23,48 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final AuthenticationManager authenticationManager;
     @Override
     public AuthenticationResponse register(RegisterRequest request) {
-        User user =new User();
-        user.setName(request.getName());
-        user.setEmail(request.getEmail());
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
-        repository.save(user);
-        var jwtToken=jwtService.generateToken(user);
-        return AuthenticationResponse.builder()
-                .token(jwtToken)
-                .build();
+        try {
+            User user =new User();
+            user.setName(request.getName());
+            user.setEmail(request.getEmail());
+            user.setPassword(passwordEncoder.encode(request.getPassword()));
+            repository.save(user);
+            var jwtToken=jwtService.generateToken(user);
+            return AuthenticationResponse.builder()
+                    .token(jwtToken)
+                    .message("User account has been successfully created")
+                    .build();
+        }catch (Exception e){
+            return AuthenticationResponse.builder()
+                    .message(e.toString())
+                    .build();
+        }
+
     }
 
     @Override
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getEmail(),
-                        request.getPassword()
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            request.getEmail(),
+                            request.getPassword()
 
-                )
-        );
+                    )
+            );
 
-        User user=repository.findByEmail(request.getEmail())
-                .orElseThrow();
+            User user=repository.findByEmail(request.getEmail())
+                    .orElseThrow();
             var jwtToken = jwtService.generateToken(user);
             return AuthenticationResponse.builder()
                     .token(jwtToken)
+                    .message("User account has been successfully Authenticated")
                     .build();
+        }catch (Exception e){
+            return AuthenticationResponse.builder()
+                    .message(e.toString())
+                    .build();
+        }
+
     }
 }
